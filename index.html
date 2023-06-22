@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Котики и собачки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            margin-top: 20px;
+            text-align: center;
+        }
+        nav a {
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 5px;
+            color: #333;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            color: #333;
+        }
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+        .fade-in {
+            opacity: 0;
+            animation-name: fade-in;
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .slide-in-left {
+            transform: translateX(-100%);
+            animation-name: slide-in-left;
+        }
+        @keyframes slide-in-left {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .slide-in-right {
+            transform: translateX(100%);
+            animation-name: slide-in-right;
+        }
+        @keyframes slide-in-right {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .rotate {
+            animation-name: rotate;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        #home-page {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        #cats-page, #dogs-page {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        #dogs-image, #cats-image {
+            height: 300px;
+            width: 300px;
+            border-radius: 250px;
+        }
+        .slider-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        .slider {
+            width: 50%;
+            margin: 10px auto;
+        }
+        .slider-value {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        .form-item {
+            margin-bottom: 10px;
+        }
+        .form-item label {
+            font-weight: bold;
+        }
+        .form-item input[type="text"],
+        .form-item select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+        .form-item input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-item input[type="submit"]:hover {
+            background-color: #555;
+        }
+        #home-img{
+            height: 500px;
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            setupEventHandlers();
+            animateHomePage();
+            animateCatsPage();
+            animateDogsPage();
+        });
+        function setupEventHandlers() {
+            document.getElementById('cats-slider').addEventListener('input', function () {
+                updateSliderValue('cats-slider', 'cats-slider-value');
+            });
+            document.getElementById('dogs-slider').addEventListener('input', function () {
+                updateSliderValue('dogs-slider', 'dogs-slider-value');
+            });
+            var homeLink = document.getElementById('home-link');
+            var catsLink = document.getElementById('cats-link');
+            var dogsLink = document.getElementById('dogs-link');
+            homeLink.addEventListener('click', function () {
+                showHomePage();
+            });
+            catsLink.addEventListener('click', function () {
+                showCatsPage();
+            });
+            dogsLink.addEventListener('click', function () {
+                showDogsPage();
+            });
+        }
+        function showHomePage() {
+            var homePage = document.getElementById('home-page');
+            var catsPage = document.getElementById('cats-page');
+            var dogsPage = document.getElementById('dogs-page');
+            homePage.style.display = 'block';
+            catsPage.style.display = 'none';
+            dogsPage.style.display = 'none';
+            animateHomePage();
+        }
+        function showCatsPage() {
+            var homePage = document.getElementById('home-page');
+            var catsPage = document.getElementById('cats-page');
+            var dogsPage = document.getElementById('dogs-page');
+            homePage.style.display = 'none';
+            catsPage.style.display = 'block';
+            dogsPage.style.display = 'none';
+            animateCatsPage();
+        }
+        function showDogsPage() {
+            var homePage = document.getElementById('home-page');
+            var catsPage = document.getElementById('cats-page');
+            var dogsPage = document.getElementById('dogs-page');
+            homePage.style.display = 'none';
+            catsPage.style.display = 'none';
+            dogsPage.style.display = 'block';
+            animateDogsPage();
+        }
+        function animateHomePage() {
+            var homeTitle = document.getElementById('home-title');
+            homeTitle.classList.add('animated', 'fade-in');
+        }
+        function animateCatsPage() {
+            var catsTitle = document.getElementById('cats-title');
+            var catsImage = document.getElementById('cats-image');
+            catsTitle.classList.add('animated', 'slide-in-left');
+            catsImage.classList.add('animated', 'rotate');
+        }
+        function animateDogsPage() {
+            var dogsTitle = document.getElementById('dogs-title');
+            var dogsImage = document.getElementById('dogs-image');
+            dogsTitle.classList.add('animated', 'slide-in-right');
+            dogsImage.classList.add('animated', 'rotate');
+        }
+        function updateSliderValue(sliderId, valueId) {
+            var slider = document.getElementById(sliderId);
+            var value = document.getElementById(valueId);
+            value.innerHTML = 'Насколько вам нравится животные от 1 до 100: ' + slider.value;
+        }
+        document.getElementById('cats-slider').addEventListener('input', function () {
+            updateSliderValue('cats-slider', 'cats-slider-value');
+        });
+        document.getElementById('dogs-slider').addEventListener('input', function () {
+            updateSliderValue('dogs-slider', 'dogs-slider-value');
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Котики и собачки</h1>
+        <nav>
+            <a id="home-link" href="#">Домашняя</a>
+            <a id="cats-link" href="#">Котики</a>
+            <a id="dogs-link" href="#">Собачки</a>
+        </nav>
+    </header>
+    <main>
+        <div id="home-page">
+            <h2 id="home-title">Добро пожаловать на сайт о котиках и собачках!</h2>
+            <img id="home-img" src="https://www.ptichka.ru/data/cache/2019nov/07/07/105110_16348.jpg" alt="">
+        </div>
+        <div id="cats-page" style="display: none;">
+            <h2 id="cats-title">Страница с котиками</h2>
+            <img id="cats-image" src="https://yt3.googleusercontent.com/Yox0Nf1dHt7sv78GLbhIqDn0Gglit6LTyL0gmWdQ8FKEm2fHhFQSl4B0uVG6l5oN1vC09fpV4w=s900-c-k-c0x00ffffff-no-rj" alt="Котики">
+            <div class="slider-container">
+                <input type="range" class="slider" min="0" max="100" value="50" id="cats-slider">
+                <div class="slider-value" id="cats-slider-value"></div>
+            </div>
+            <div class="form-container">
+                <h3>Форма для покупки котиков</h3>
+                <form>
+                    <div class="form-item">
+                        <label for="cat-name">Имя:</label>
+                        <input type="text" id="cat-name" name="cat-name">
+                    </div>
+                    <div class="form-item">
+                        <label for="cat-breed">Порода:</label>
+                        <select id="cat-breed" name="cat-breed">
+                            <option value="british">Британская</option>
+                            <option value="persian">Персидская</option>
+                            <option value="siamese">Сиамская</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <input type="submit" value="Купить">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="dogs-page" style="display: none;">
+            <h2 id="dogs-title">Страница с собачками</h2>
+            <img id="dogs-image" src="https://klike.net/uploads/posts/2023-02/1677050102_2-3.jpg" alt="Собачки">
+            <div class="slider-container">
+                <input type="range" class="slider" min="0" max="100" value="50" id="dogs-slider">
+                <div class="slider-value" id="dogs-slider-value"></div>
+            </div>
+            <div class="form-container">
+                <h3>Форма для покупки собачек</h3>
+                <form>
+                    <div class="form-item">
+                        <label for="dog-name">Имя:</label>
+                        <input type="text" id="dog-name" name="dog-name">
+                    </div>
+                    <div class="form-item">
+                        <label for="dog-breed">Порода:</label>
+                        <select id="dog-breed" name="dog-breed">
+                            <option value="labrador">Лабрадор</option>
+                            <option value="bulldog">Бульдог</option>
+                            <option value="poodle">Пудель</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <input type="submit" value="Купить">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
